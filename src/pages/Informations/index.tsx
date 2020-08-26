@@ -2,6 +2,8 @@ import React, {useEffect, useState } from 'react';
 
 import axios from 'axios';
 
+import Header from '../../components/Header';
+
 interface PokemonResponse {
     name: string;
     id: number;
@@ -73,53 +75,56 @@ const Informations: React.FC<Props> = (props) => {
     }, []);
     
     return (
-        <div id="page-informations">
-            <div className="content">
-                <li>
-                    {
-                        <ul>
-                            <li>
-                                <h3>Name:</h3>
-                                {pokemon.name}
-                            </li>
-                            <li>
-                                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`} alt={pokemon.name} title={pokemon.name}/>
-                            </li>
-                            <li>
-                                <h3>Weight:</h3>
-                                {pokemon.weight}
-                            </li>
-                            <li>
-                                <h3>Stats:</h3>
-                                {pokemon.stats.map(item => (
-                                    <ul key={item.stat.name}>
-                                        <li>
-                                            <p>
-                                                {item.stat.name}:&nbsp;
-                                                {item.base_stat}
-                                            </p>
-                                        </li>
-                                    </ul>
-                                ))}
-                            </li>
-                            <li>
-                                <h3>Abilities:</h3>
-                                {pokemon.abilities.map(item => (
-                                    <ul key={item.ability.name}>
-                                        <li>
-                                            <p>
-                                                {item.ability.name}:&nbsp;
-                                                slot {item.slot}
-                                            </p>
-                                        </li>
-                                    </ul>
-                                ))}
-                            </li>
-                        </ul>
-                    }
-                </li>
+        <>
+            <Header />
+            <div id="page-informations">
+                <div className="content">
+                    <li>
+                        {
+                            <ul>
+                                <li>
+                                    <h3>Name:</h3>
+                                    {pokemon.name}
+                                </li>
+                                <li>
+                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`} alt={pokemon.name} title={pokemon.name}/>
+                                </li>
+                                <li>
+                                    <h3>Weight:</h3>
+                                    {pokemon.weight}
+                                </li>
+                                <li>
+                                    <h3>Stats:</h3>
+                                    {pokemon.stats.map(item => (
+                                        <ul key={item.stat.name}>
+                                            <li>
+                                                <p>
+                                                    {item.stat.name}:&nbsp;
+                                                    {item.base_stat}
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    ))}
+                                </li>
+                                <li>
+                                    <h3>Abilities:</h3>
+                                    {pokemon.abilities.map(item => (
+                                        <ul key={item.ability.name}>
+                                            <li>
+                                                <p>
+                                                    {item.ability.name}:&nbsp;
+                                                    slot {item.slot}
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    ))}
+                                </li>
+                            </ul>
+                        }
+                    </li>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 

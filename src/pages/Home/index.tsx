@@ -1,10 +1,14 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent, SyntheticEvent } from 'react';
 
 import axios from 'axios';
 
 import { Link } from 'react-router-dom';
 
 import Pagination from '../../components/Pagination';
+
+import * as defaultImg from '../../assets/default-image.jpg';
+
+import Header from '../../components/Header';
 
 type Nullable<String> = String | null;
 
@@ -98,7 +102,6 @@ const Home = () => {
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-        console.log(event.target.value);
         setSearch(event.target.value);
     }
 
@@ -108,7 +111,6 @@ const Home = () => {
             var filteredP = pokemonList;
              filteredP = pokemonList.filter(
                 (pokemon)=>{
-                    console.log("Filter"+pokemon.name.search(filter))
                     if (pokemon.name.search(filter) !== -1) {
                         return pokemon;
                     } else {
@@ -133,12 +135,30 @@ const Home = () => {
         }
     }, [search]);
 
-    function addDefaultSrc(event: ChangeEvent<HTMLInputElement>){
-        event.target.src = '../../assets/no-image.jpg';
+    // function addDefaultSrc(event: SyntheticEvent<HTMLImageElement, Event>){
+    function addDefaultSrc(event: SyntheticEvent<HTMLImageElement>){
+        // console.log("target"+event.target.removeEventListener);
+        // event.currentTarget.src = '../../../public/default-image.jpg';
+        event.currentTarget.src = '/default-image.jpg';
+        
     }
-    if (loading) return <p>Loading...</p>
+
+    function URLExists(url: string){
+        var http = new XMLHttpRequest();
+        http.open('HEAD', url, false);
+        http.send();
+        return http.status!==404;
+    }
+
+    if (loading) return (
+        <>
+            <Header />
+            <p>Loading...</p>
+        </>
+    );
     else return (
         <>
+            <Header />
             {/* <Pagination 
                 gotoPrevPage={gotoPrevPage}
                 gotoNextPage={gotoNextPage}
@@ -157,11 +177,27 @@ const Home = () => {
                                 <Link to={`/pokemon/${pokemonId}`}>
                                     <p>{poke.name}</p>
                                     <img 
-                                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(pokemonId+pokemonList.indexOf(poke)+1)}.png`} 
+                                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(pokemonId+pokemonList.indexOf(poke)+1)}.png` || `/default-image.jpg`} 
                                         alt={poke.name} 
                                         title={poke.name}
-                                        onError={() => addDefaultSrc}
+                                        onError={addDefaultSrc}
                                     />
+                                    {/* {(URLExists(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(pokemonId+pokemonList.indexOf(poke)+1)}.png`) ?
+                                        <img 
+                                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(pokemonId+pokemonList.indexOf(poke)+1)}.png`} 
+                                            alt={poke.name} 
+                                            title={poke.name}
+                                            onError={addDefaultSrc}
+                                        />
+                                        :
+                                        <img 
+                                            src={`/default-image.jpg`} 
+                                            alt={poke.name} 
+                                            title={poke.name}
+                                            onError={addDefaultSrc}
+                                        />
+
+                                    )} */}
                                     {/* {pokemon.indexOf(poke)} */}
                                 </Link>
                             </li>

@@ -8,12 +8,14 @@ import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
 
 import Home from './pages/Home';
+import * as defaultImage from '../src/assets/default-image.jpg';
 import Informations from './pages/Informations';
 
 const Routes = () => {
     return (
         <BrowserRouter>
             <Route component={Home} path="/" exact />
+            <Route children={defaultImage} path="/default-image.jpg"/>
             <Route component={Informations} path="/pokemon/:id" />
         </BrowserRouter>
     );
