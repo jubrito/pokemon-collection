@@ -1,9 +1,11 @@
-import React, {useEffect, useState } from 'react';
+import React, {useEffect, useState, SyntheticEvent } from 'react';
 
 import axios from 'axios';
 
 import Header from '../../components/Header';
 import TopBar from '../../components/TopBar';
+
+import ReactImageFallback from "react-image-fallback";
 
 interface PokemonResponse {
     name: string;
@@ -25,6 +27,13 @@ interface PokemonResponse {
         }
     ];
     weight: number;
+    sprites: {
+        img: string;
+    };
+}
+
+interface PokemonImage {
+
 }
 
 interface Props {
@@ -59,6 +68,9 @@ const Informations: React.FC<Props> = (props) => {
                 slot: 1,
             }
         ],
+        sprites: {
+            img: '/pokeball-loading.gif'
+        }
     });
 
     useEffect(() => {
@@ -66,32 +78,40 @@ const Informations: React.FC<Props> = (props) => {
         setLoading(true);
         axios.get<PokemonResponse>(`https://pokeapi.co/api/v2/pokemon/${id}`).then(response => {
             setLoading(false);
-            const { name, weight, id, stats, abilities } = response.data;
+            const { name, weight, id, stats, abilities, sprites } = response.data;
             setPokemon({
                 name, 
                 weight,
                 id,
                 stats,
                 abilities,
+                sprites: {
+                    img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+                }
             });
             console.log(response.data);
             // return response;
         });
     }, []);
 
-    function handlePokemonName(){
-        return pokemon.name;
+    function handleBackHome(){
+        return true;
     }
     
     return (
         <>
             <Header />
-            <TopBar handlePokemonName={handlePokemonName} />
+            <TopBar handleBackHome={handleBackHome} />
             <div id="page-informations">
                 <div className="content">
                     <section className="pokemonInfo">
                         <div className="pokemonInfo__image">
-                            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`} alt={pokemon.name} title={pokemon.name}/>
+                            <ReactImageFallback 
+                                src={pokemon.sprites.img} 
+                                alt={pokemon.name}
+                                fallbackImage={'/default-image.jpg'}
+                                initialImage={'/pokeball-loading.gif'}  />
+                            {/* <img src={pokemon.sprites.img} alt={pokemon.name} title={pokemon.name} onError={(e: SyntheticEvent<HTMLImageElement>)=> {e.currentTarget.src='/default-image.jpg'}}/> */}
                         </div>
                         <div className="pokemonInfo__text">
                             {

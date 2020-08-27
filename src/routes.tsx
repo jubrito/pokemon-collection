@@ -5,19 +5,23 @@
         Verifica se começa com o digito, se você cria duas rotas com / e /nome, precisa especificar com exact (que na vdd é exact = {true})*/
 
 import React from 'react';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import Home from './pages/Home';
 import DefaultImg from './components/DefaultImg';
+import NotFound from './components/NotFound';
 import * as defaultImage from '../src/assets/default-image.jpg';
 import Informations from './pages/Informations';
 
 const Routes = () => {
     return (
         <BrowserRouter>
-            <Route component={Home} path="/" exact />
-            <Route component={DefaultImg} path="/default-image.jpg"/>
-            <Route component={Informations} path="/pokemon/:id" />
+            <Switch>
+                <Route component={Home} path="/" exact />
+                <Route component={DefaultImg} path="/default-image.jpg"/>
+                <Route component={Informations} path="/pokemon/:id" />
+                <Route component={NotFound} />
+            </Switch>
         </BrowserRouter>
     );
 }

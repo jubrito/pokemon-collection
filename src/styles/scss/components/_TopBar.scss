@@ -1,6 +1,10 @@
 @import '../utils/mixins';
 @import '../utils/vars';
 
+p, a {
+    font-family: $font-ubuntu;
+}
+
 #page-top-bar {
     background-color: $color-black;
 
@@ -49,22 +53,6 @@
             @media(max-width: $mobile-xs-screen){
                 padding: 16px 0;
             }
-            &:before {
-                content: "";
-                position: absolute;
-                background-image: url('/pokeball.png');
-                background-repeat: no-repeat;
-                left: calc(100% - 500px);
-                top: 50%;
-                transform: translateY(-50%);
-                width: 60px;
-                height: 60px;
-                z-index: 1;
-
-                @media(max-width: $mobile-screen){
-                    display: none;
-                }
-            }
             
             input {
                 padding: 10px 200px 10px 70px;
@@ -88,6 +76,17 @@
                     border: none;
                     outline: 0;
                 }
+            }
+
+            a {
+                color: $color-white;
+                @include display-flex;
+                @include align-items(center);;
+                text-decoration: none;  
+            }
+            p {
+                padding: 0 0 0 5px;
+                text-transform: uppercase;
             }
         }
     }

@@ -8,6 +8,8 @@ import Pagination from '../../components/Pagination';
 
 import * as defaultImg from '../../assets/default-image.jpg';
 
+import ReactImageFallback from "react-image-fallback";
+
 import Header from '../../components/Header';
 
 import TopBar from '../../components/TopBar';
@@ -33,7 +35,7 @@ const Home = () => {
     // const [ pokemon, setPokemon ] = useState<Pokemon[]>([{name:'', url:'', id: 0, img: ''}]);
     const [ pokemonList, setPokemonList ] = useState<Pokemon[]>([{name: '', url: ''}]); 
     
-    const [ currentPageURL, setCurrentPageURL ] = useState("https://pokeapi.co/api/v2/pokemon?offset=100&limit=807");
+    const [ currentPageURL, setCurrentPageURL ] = useState("https://pokeapi.co/api/v2/pokemon?offset=0&limit=1048");
     const [ nextPageURL, setNextPageURL ] = useState<Nullable<String>>();
     const [ prevPageURL, setPrevPageURL ] = useState<Nullable<String>>();
     const [ loading, setLoading ] = useState(true);
@@ -61,17 +63,17 @@ const Home = () => {
                 cancelToken: new axios.CancelToken(c => cancelOldRequest = c)
             }).then(response => {
             // console.log(response.data.results);
-            // const pokemm = response.data.results.map(poke => poke.url);
+            // const pokemonData = response.data.results.map(poke => poke.url);
             setLoading(false);
             console.log(response.data.results);
-            const pokemm = response.data.results;
+            const pokemonData = response.data.results;
             const next = response.data.next;
             const previous = response.data.previous;
             // setNextPageURL(next);
             // setPrevPageURL(previous);
-            setPokemonList(pokemm);
-            setfilteredPokemons(pokemm);
-            setFullList(pokemm);
+            setPokemonList(pokemonData);
+            setfilteredPokemons(pokemonData);
+            setFullList(pokemonData);
         });
         // cancel previous request every time we make a new one, making sure the application never loads old data
         return () => cancelOldRequest();
@@ -118,39 +120,21 @@ const Home = () => {
                     } else {
                         return;
                     }
-                    // return pokemon.name.toLowerCase().search(filter) !== -1;
-                        // pokemon.name.startsWith(filter);
-                        // console.log(pokemon.name.startsWith("a", 0));
-                        // return pokemon.name.includes(filter);
                 });
                     //if you cannot find this search within the name then do not return it, on the instance you can find it, return the content (keep that content within the pokemonlist)
-                    
-                    // var name = String(pokemon.name);
-                    // console.log(search);
-                    // var  name.filter(item => {
-                    //     return filteredPokemons.includes(search);
-                    // });
             setfilteredPokemons(filteredP);
         } else {
-            // console.log("full"+fullList);
             setfilteredPokemons(fullList);
         }
     }, [search]);
 
-    // function addDefaultSrc(event: SyntheticEvent<HTMLImageElement, Event>){
-    function addDefaultSrc(event: SyntheticEvent<HTMLImageElement>){
-        // console.log("target"+event.target.removeEventListener);
-        // event.currentTarget.src = '../../../public/default-image.jpg';
-        event.currentTarget.src = '/default-image.jpg';
-        return '/default-image.jpg';
-    }
+    useEffect(() => {
+        filteredPokemons.map(poke =>  {
+            var id = Number(poke.url.slice(34, -1));
+            setPokemonId(id);
+        })
+    }, [filteredPokemons]);
 
-    function URLExists(url: string){
-        var http = new XMLHttpRequest();
-        http.open('HEAD', url, false);
-        http.send();
-        return http.status!==404;
-    }
 
     if (loading) return (
         <>
@@ -179,14 +163,21 @@ const Home = () => {
                         <ul>
                         {
                             filteredPokemons.map(poke => (
-                                <li key={poke.name} id={String(pokemonId+filteredPokemons.indexOf(poke)+1)}>
+                                <li key={poke.name} id={poke.url.slice(34, -1)}>
+                                {/* <li key={poke.name} id={String(pokemonId+filteredPokemons.indexOf(poke)+1)}> */}
                                     {/* <Link to={`/pokemon/${pokemonList.indexOf(poke)+1}`}> */}
-                                    <Link to={`/pokemon/${pokemonId+filteredPokemons.indexOf(poke)+1}`}>
-                                        <img 
-                                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(pokemonId+pokemonList.indexOf(poke)+1)}.png` || `/default-image.jpg`} 
+                                    <Link to={`/pokemon/${poke.url.slice(34, -1)}`}>
+                                        {/* <img 
+                                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.url.slice(34, -1)}.png` || `/default-image.jpg`} 
                                             alt={poke.name} 
                                             title={poke.name}
                                             onError={addDefaultSrc}
+                                            /> */}
+                                        <ReactImageFallback
+                                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.url.slice(34, -1)}.png` || `/default-image.jpg`} 
+                                            fallbackImage={'/default-image.jpg'}
+                                            initialImage={'/pokeball-loading.gif'}
+                                            alt={poke.name} 
                                             />
                                         <p>{poke.name}</p>
                                         {/* {(URLExists(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(pokemonId+pokemonList.indexOf(poke)+1)}.png`) ?

@@ -33,7 +33,25 @@ body {
             max-width: unset;
             margin: 0;
         }
+        position: relative;
+        &:before {
+            content: "";
+            position: absolute;
+            background-image: url('/pokeball.png');
+            background-repeat: no-repeat;
+            left: calc(100% - 500px);
+            top: -41px;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            z-index: 1;
+    
+            @media(max-width: $mobile-screen){
+                display: none;
+            }
+        }
     }
+
     
     section {
         grid-area: section;

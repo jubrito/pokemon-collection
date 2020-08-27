@@ -19,6 +19,12 @@ body {
             max-width: unset;
             margin: 0;
         }
+
+        &:before {
+            left: unset;
+            right: 33px;
+            top: 105px;
+        }
     }
     
     h2{
@@ -60,14 +66,14 @@ body {
         .pokemonInfo {
             &__image {
                 width: 50%;
+                @include display-flex;
+                @include justify-content(center);
+                @include align-items(center);
                 @media(max-width: $ipad-pro-screen){
                     margin-right: 50px;
                 }
                 @media(max-width: $tablet-screen){
                     width: 100%;
-                    @include display-flex;
-                    @include justify-content(center);
-                    @include align-items(center);
                 }
                 img {
                     max-width: 100%;
