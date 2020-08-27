@@ -3,6 +3,7 @@ import React, {useEffect, useState } from 'react';
 import axios from 'axios';
 
 import Header from '../../components/Header';
+import TopBar from '../../components/TopBar';
 
 interface PokemonResponse {
     name: string;
@@ -36,6 +37,8 @@ interface Props {
 
 const Informations: React.FC<Props> = (props) => {
 
+    const [ loading, setLoading ] = useState(true);
+
     const [pokemon, setPokemon] = useState<PokemonResponse>(
         {name: '', 
         weight: 0, 
@@ -60,7 +63,9 @@ const Informations: React.FC<Props> = (props) => {
 
     useEffect(() => {
         var id = props.match.params.id;
+        setLoading(true);
         axios.get<PokemonResponse>(`https://pokeapi.co/api/v2/pokemon/${id}`).then(response => {
+            setLoading(false);
             const { name, weight, id, stats, abilities } = response.data;
             setPokemon({
                 name, 
@@ -73,55 +78,65 @@ const Informations: React.FC<Props> = (props) => {
             // return response;
         });
     }, []);
+
+    function handlePokemonName(){
+        return pokemon.name;
+    }
     
     return (
         <>
             <Header />
+            <TopBar handlePokemonName={handlePokemonName} />
             <div id="page-informations">
                 <div className="content">
-                    <li>
-                        {
-                            <ul>
-                                <li>
-                                    <h3>Name:</h3>
-                                    {pokemon.name}
-                                </li>
-                                <li>
-                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`} alt={pokemon.name} title={pokemon.name}/>
-                                </li>
-                                <li>
-                                    <h3>Weight:</h3>
-                                    {pokemon.weight}
-                                </li>
-                                <li>
-                                    <h3>Stats:</h3>
-                                    {pokemon.stats.map(item => (
-                                        <ul key={item.stat.name}>
-                                            <li>
-                                                <p>
-                                                    {item.stat.name}:&nbsp;
-                                                    {item.base_stat}
-                                                </p>
-                                            </li>
-                                        </ul>
-                                    ))}
-                                </li>
-                                <li>
-                                    <h3>Abilities:</h3>
-                                    {pokemon.abilities.map(item => (
-                                        <ul key={item.ability.name}>
-                                            <li>
-                                                <p>
-                                                    {item.ability.name}:&nbsp;
-                                                    slot {item.slot}
-                                                </p>
-                                            </li>
-                                        </ul>
-                                    ))}
-                                </li>
-                            </ul>
-                        }
-                    </li>
+                    <section className="pokemonInfo">
+                        <div className="pokemonInfo__image">
+                            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`} alt={pokemon.name} title={pokemon.name}/>
+                        </div>
+                        <div className="pokemonInfo__text">
+                            {
+                                <>
+                                    <h2>{pokemon.name}</h2>
+                                    <h3>WEIGHT</h3>
+                                    <ul>
+                                        <li>
+                                            <ul>
+                                                <li>
+                                                    <p>{pokemon.weight}</p>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <h3>STATS</h3>
+                                        <li>
+                                            {pokemon.stats.map(item => (
+                                                <ul key={item.stat.name}>
+                                                    <li>
+                                                        <p>
+                                                            <strong>{item.stat.name}:&nbsp;</strong>
+                                                            {item.base_stat}
+                                                        </p>
+                                                    </li>
+                                                </ul>
+                                            ))}
+                                        </li>
+                                        <h3>ABILITIES</h3>
+                                        <li>
+                                            {pokemon.abilities.map(item => (
+                                                <ul key={item.ability.name}>
+                                                    <li>
+                                                        <p>
+                                                            <strong>{item.ability.name}:&nbsp;</strong>
+                                                            slot {item.slot}
+                                                        </p>
+                                                    </li>
+                                                </ul>
+                                            ))}
+                                        </li>
+                                    </ul>
+                                </>
+                            }
+                        </div>
+                    </section>
                 </div>
             </div>
         </>

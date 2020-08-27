@@ -1,6 +1,125 @@
 @import '../utils/mixins';
 @import '../utils/vars';
 
+body {
+    margin: 0;
+    
+    p, li, h3 {
+        font-family: $font-ubuntu;
+    }
+}
+
 #page-informations {
-    background-color: $color-white;
+    .content {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+
+        @media(max-width: $ipad-pro-screen){
+            max-width: unset;
+            margin: 0;
+        }
+    }
+    
+    h2{
+        display: block;
+        font-size: 35px;
+        margin: 25px 0 10px;
+        text-transform: uppercase;
+        background-color: $color-red;
+        color: $color-white;
+        padding: 10px 30px;
+        border-radius: 10px;
+
+    }
+    h3{
+        display: block;
+        font-weight: strong;
+        font-size: 25px;
+        margin: 25px 0 10px;
+        padding: 0 0 0 35px;
+        position: relative;
+    }
+
+    section {
+        grid-area: section;
+        @include display-flex;
+        @include flex-direction(row);
+        @include justify-content(center);
+        @include align-items(center);
+        min-width: 1000px;
+        background-color: $color-white;
+        
+        @media(max-width: $ipad-pro-screen){
+            min-width: unset;
+        }
+        @media(max-width: $tablet-screen){
+            @include flex-direction(column);
+        }
+
+        .pokemonInfo {
+            &__image {
+                width: 50%;
+                @media(max-width: $ipad-pro-screen){
+                    margin-right: 50px;
+                }
+                @media(max-width: $tablet-screen){
+                    width: 100%;
+                    @include display-flex;
+                    @include justify-content(center);
+                    @include align-items(center);
+                }
+                img {
+                    max-width: 100%;
+
+                    @media(max-width: $tablet-screen){
+                        max-width: 390px;
+                    }
+                    @media(max-width: $mobile-xs-screen){
+                        max-width: 280px;
+                    }
+                }
+            }
+
+            &__text{
+                width: 50%;
+                @media(max-width: $tablet-screen){
+                    width: 100%;
+                }
+                ul{
+                    @media(max-width: $tablet-screen){
+                        @include justify-content(center);
+                        @include align-items(center);
+                    }
+
+                    @include flex-direction(column);
+                    @include align-items(flex-start);
+                    @include justify-content(flex-start);
+                    @include flex-wrap(wrap);
+                    margin: 0;
+    
+                    li {
+                        @include flex-wrap(wrap);
+                        @include justify-content(flex-start);
+                        margin: 0;
+                        padding: 7px 18px;
+                        @media(max-width: $tablet-screen){
+                            display: block;
+                        }
+
+                        p{
+                            display: inline;
+                            font-size: 20px;
+                            &:first-of-type{
+                                text-transform: capitalize;
+                            }
+                            text-transform: none;
+                            position: relative;
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

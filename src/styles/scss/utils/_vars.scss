@@ -1,12 +1,21 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,700;1,300&display=swap');
 /* Colors */
 $color-black: #000;
 $color-white: #fff;
 $color-light-gray: #F8F8FF;
 $color-gray: #e7e7f1;
-$color-dark-gray: #8f8fa0;
+// $color-dark-gray: #8f8fa0;
+$color-dark-gray:  #252525;
 $color-green: #008000;
 $color-light-green: #bfffbf;
 $color-red: #d40000;
 
 /* Fonts */
-$font-lato: 'Lato', sans-serif;
+$font-ubuntu: 'Ubuntu', sans-serif;
+$font-ubuntu: 'Ubuntu', sans-serif;
+
+$ipad-pro-screen: 1024px;
+$tablet-screen: 768px;
+$mobile-screen: 767px;
+$mobile-xs-screen: 320px;

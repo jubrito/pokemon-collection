@@ -1,0 +1,72 @@
+@charset "UTF-8";
+/* Colors */
+/* Fonts */
+#page-home {
+  display: grid;
+  /*era block por padrão*/
+  grid-template-areas: "navbar navbar navbar" "section section section" "footer footer footer";
+  grid-template-rows: 15vh 15vh 15vh;
+  /*altura do view é 100*/
+  grid-template-columns: 15vw 15vw 15vw;
+  grid-gap: 10px; }
+  #page-home nav {
+    grid-area: navbar;
+    background-color: #000; }
+    #page-home nav div {
+      background-color: #000; }
+  #page-home section {
+    grid-area: section;
+    background-color: #d40000;
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    justify-content: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    -ms-flex-pack: center;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    width: 100%; }
+    #page-home section ul {
+      display: flex;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      flex-direction: row;
+      -webkit-flex-direction: row;
+      -moz-flex-direction: row;
+      -ms-flex-direction: row;
+      justify-content: center;
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      -ms-justify-content: center;
+      -ms-flex-pack: center;
+      align-items: center;
+      -webkit-align-items: center;
+      -moz-align-items: center;
+      -ms-align-items: center;
+      flex-wrap: wrap;
+      -webkit-flex-wrap: wrap;
+      -moz-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      text-decoration-style: none; }
+      #page-home section ul li {
+        padding: 30px; }
+  #page-home footer {
+    grid-area: footer;
+    background-color: #008000; }
+
+/* Colors */
+/* Fonts */
+#page-informations {
+  background-color: #fff; }

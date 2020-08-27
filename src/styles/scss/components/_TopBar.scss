@@ -1,0 +1,94 @@
+@import '../utils/mixins';
+@import '../utils/vars';
+
+#page-top-bar {
+    background-color: $color-black;
+
+    .content {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+
+        @media(max-width: $ipad-pro-screen){
+            max-width: unset;
+            margin: 0;
+        }
+    }
+    
+    section {
+        grid-area: section;
+        @include display-flex;
+        @include flex-direction(row);
+        @include justify-content(center);
+        @include align-items(center);
+        min-width: 1000px;
+        
+        
+        @media(max-width: $ipad-pro-screen){
+            min-width: unset;
+        }
+        
+        div {
+            position: relative;
+        }
+        
+        
+        &.searchBar {
+            @include display-flex;
+            @include justify-content(flex-end);
+            @include align-items(center);
+            background-color: $color-red;
+            padding: 16px;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            
+            @media(max-width: $mobile-screen){
+                @include justify-content(center);
+                border-radius: unset;
+            }
+            @media(max-width: $mobile-xs-screen){
+                padding: 16px 0;
+            }
+            &:before {
+                content: "";
+                position: absolute;
+                background-image: url('/pokeball.png');
+                background-repeat: no-repeat;
+                left: calc(100% - 500px);
+                top: 50%;
+                transform: translateY(-50%);
+                width: 60px;
+                height: 60px;
+                z-index: 1;
+
+                @media(max-width: $mobile-screen){
+                    display: none;
+                }
+            }
+            
+            input {
+                padding: 10px 200px 10px 70px;
+                font-style: italic;
+                margin: 5px;
+                font-size: 15px;
+                border-radius: 10px;
+                
+                @media(max-width: $ipad-pro-screen){
+                    margin-right: 20px;
+                }
+                @media(max-width: $mobile-screen){
+                    margin: 0;
+                    padding: 10px 80px 10px 80px;
+                }
+                @media(max-width: $mobile-xs-screen){
+                    padding: 10px 50px 10px 50px;
+                }
+
+                &:focus {
+                    border: none;
+                    outline: 0;
+                }
+            }
+        }
+    }
+}

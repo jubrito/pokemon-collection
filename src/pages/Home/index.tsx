@@ -10,6 +10,8 @@ import * as defaultImg from '../../assets/default-image.jpg';
 
 import Header from '../../components/Header';
 
+import TopBar from '../../components/TopBar';
+
 type Nullable<String> = String | null;
 
 // Informamos que o axios.get vai retornar um array nesse formato
@@ -31,7 +33,7 @@ const Home = () => {
     // const [ pokemon, setPokemon ] = useState<Pokemon[]>([{name:'', url:'', id: 0, img: ''}]);
     const [ pokemonList, setPokemonList ] = useState<Pokemon[]>([{name: '', url: ''}]); 
     
-    const [ currentPageURL, setCurrentPageURL ] = useState("https://pokeapi.co/api/v2/pokemon?offset=100&limit=1048");
+    const [ currentPageURL, setCurrentPageURL ] = useState("https://pokeapi.co/api/v2/pokemon?offset=100&limit=807");
     const [ nextPageURL, setNextPageURL ] = useState<Nullable<String>>();
     const [ prevPageURL, setPrevPageURL ] = useState<Nullable<String>>();
     const [ loading, setLoading ] = useState(true);
@@ -140,7 +142,7 @@ const Home = () => {
         // console.log("target"+event.target.removeEventListener);
         // event.currentTarget.src = '../../../public/default-image.jpg';
         event.currentTarget.src = '/default-image.jpg';
-        
+        return '/default-image.jpg';
     }
 
     function URLExists(url: string){
@@ -153,7 +155,14 @@ const Home = () => {
     if (loading) return (
         <>
             <Header />
-            <p>Loading...</p>
+            <TopBar handleInputChange={handleInputChange} />
+            <div id="page-home">
+                <div className="content">
+                    <section className="pokemonList">
+                        <p>Loading...</p>
+                    </section>
+                </div>
+            </div>
         </>
     );
     else return (
@@ -163,48 +172,47 @@ const Home = () => {
                 gotoPrevPage={gotoPrevPage}
                 gotoNextPage={gotoNextPage}
             /> */}
+            <TopBar handleInputChange={handleInputChange} />
             <div id="page-home">
                 <div className="content">
-                    <input 
-                        type="text" 
-                        onChange={handleInputChange}
-                        placeholder="Search a Pokemon..."/>
-                    <ul>
-                    {
-                        filteredPokemons.map(poke => (
-                            <li key={poke.name} id={String(pokemonId+filteredPokemons.indexOf(poke)+1)}>
-                                {/* <Link to={`/pokemon/${pokemonList.indexOf(poke)+1}`}> */}
-                                <Link to={`/pokemon/${pokemonId}`}>
-                                    <p>{poke.name}</p>
-                                    <img 
-                                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(pokemonId+pokemonList.indexOf(poke)+1)}.png` || `/default-image.jpg`} 
-                                        alt={poke.name} 
-                                        title={poke.name}
-                                        onError={addDefaultSrc}
-                                    />
-                                    {/* {(URLExists(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(pokemonId+pokemonList.indexOf(poke)+1)}.png`) ?
+                    <section className="pokemonList">
+                        <ul>
+                        {
+                            filteredPokemons.map(poke => (
+                                <li key={poke.name} id={String(pokemonId+filteredPokemons.indexOf(poke)+1)}>
+                                    {/* <Link to={`/pokemon/${pokemonList.indexOf(poke)+1}`}> */}
+                                    <Link to={`/pokemon/${pokemonId+filteredPokemons.indexOf(poke)+1}`}>
                                         <img 
-                                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(pokemonId+pokemonList.indexOf(poke)+1)}.png`} 
+                                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(pokemonId+pokemonList.indexOf(poke)+1)}.png` || `/default-image.jpg`} 
                                             alt={poke.name} 
                                             title={poke.name}
                                             onError={addDefaultSrc}
-                                        />
-                                        :
-                                        <img 
-                                            src={`/default-image.jpg`} 
-                                            alt={poke.name} 
-                                            title={poke.name}
-                                            onError={addDefaultSrc}
-                                        />
+                                            />
+                                        <p>{poke.name}</p>
+                                        {/* {(URLExists(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(pokemonId+pokemonList.indexOf(poke)+1)}.png`) ?
+                                            <img 
+                                                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${String(pokemonId+pokemonList.indexOf(poke)+1)}.png`} 
+                                                alt={poke.name} 
+                                                title={poke.name}
+                                                onError={addDefaultSrc}
+                                            />
+                                            :
+                                            <img 
+                                                src={`/default-image.jpg`} 
+                                                alt={poke.name} 
+                                                title={poke.name}
+                                                onError={addDefaultSrc}
+                                            />
 
-                                    )} */}
-                                    {/* {pokemon.indexOf(poke)} */}
-                                </Link>
-                            </li>
-                        // <p>{poke.url}</p>
-                        ))
-                    }
-                    </ul>
+                                        )} */}
+                                        {/* {pokemon.indexOf(poke)} */}
+                                    </Link>
+                                </li>
+                            // <p>{poke.url}</p>
+                            ))
+                        }
+                        </ul>
+                    </section>
                 </div>
             </div>
         </>

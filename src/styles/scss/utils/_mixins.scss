@@ -62,7 +62,7 @@
     -ms-flex-direction: $direction;
 }
 
-@mixin wrap($wrap){
+@mixin flex-wrap($wrap){
     // @include flex-wrap($wrap);
     flex-wrap: $wrap;
     -webkit-flex-wrap: $wrap;

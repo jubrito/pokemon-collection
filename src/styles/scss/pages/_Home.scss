@@ -1,6 +1,99 @@
 @import '../utils/mixins';
 @import '../utils/vars';
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,700;1,300&display=swap');
 
-#page-home {
-    background-color: $color-white;
+body {
+    background-color: $color-black;
+    margin: 0;
+
+    p, li, h3 {
+        font-family: $font-ubuntu;
+    }
+}
+
+#page-home,
+#page-informations {
+    display: grid; /*era block por padrão*/
+    grid-template-areas: 'section section section' /*define as colunas e linhas (header possui uma linha e 4 colunas)*/
+                         'section section section'
+                         'footer footer footer';
+    grid-template-rows: 100% 100% 100%; /*altura do view é 100*/
+    grid-template-columns: 100% 100% 100%; 
+    // grid-gap: 10px; 
+    margin: 0 auto;
+    font-family: $font-ubuntu;
+    background-color: $color-black;
+
+    .content {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+
+        @media(max-width: $ipad-pro-screen){
+            max-width: unset;
+            margin: 0;
+        }
+    }
+    
+    section {
+        grid-area: section;
+        @include display-flex;
+        @include flex-direction(row);
+        @include justify-content(center);
+        @include align-items(center);
+        min-width: 1000px;
+        
+        @media(max-width: $ipad-pro-screen){
+            min-width: unset;
+        }
+        
+        &.pokemonList,
+        &.pokemonInfo {
+            background-color: $color-light-gray;
+            padding: 50px;
+
+            @media(max-width: $mobile-screen){
+                padding: 0px;
+            }
+
+            ul {
+                @include display-flex;
+                @include flex-direction(row);
+                @include justify-content(center);
+                @include align-items(center);
+                @include flex-wrap(wrap);
+                list-style-type: none;
+                padding: 0;
+                
+                li {
+                    @include display-flex;
+                    @include justify-content(center);
+                    @include align-items(center);
+                    padding: 10px 15px;
+                    text-align: center;
+    
+                    @media(max-width: $mobile-screen){
+                        padding: 10px 30px;
+                    }
+                    
+                    p {
+                        text-transform: capitalize;
+                        margin: 0;
+                        font-size: 20px;
+                    }
+    
+                    a{
+                        color: $color-black;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    footer {
+        grid-area: footer;
+        background-color: $color-green;
+    }
 }

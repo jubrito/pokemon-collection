@@ -1,12 +1,15 @@
 import React from 'react';
 
-import imgHeader from '../../assets/header.jpg';
+import imgHeader from '../../assets/pokemon-logo.png';
 
 const Header = () => {
     return (
-        <header>
-            <img src={imgHeader} height="300"/>
-        </header>
+        <>
+            <header>
+                <img src={imgHeader}/>
+            </header>
+            <div className="afterEffects"></div>
+        </>
     );
 }
 
