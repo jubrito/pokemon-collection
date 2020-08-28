@@ -8,7 +8,7 @@ import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import Home from './pages/Home';
-import NotFound from './components/NotFound';
+import NotFound from './pages/NotFound';
 import Informations from './pages/Informations';
 
 const Routes = () => {

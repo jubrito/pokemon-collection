@@ -74,7 +74,7 @@ const Informations: React.FC<Props> = (props) => {
         setLoading(true);
         axios.get<PokemonResponse>(`https://pokeapi.co/api/v2/pokemon/${id}`).then(response => {
             setLoading(false);
-            const { name, weight, id, stats, abilities, sprites } = response.data;
+            const { name, weight, id, stats, abilities } = response.data;
             setPokemon({
                 name, 
                 weight,
@@ -88,13 +88,27 @@ const Informations: React.FC<Props> = (props) => {
             console.log(response.data);
             // return response;
         });
-    }, []);
+    }, [props.match.params.id]);
 
     function handleBackHome(){
         return true;
     }
+
+    if (loading) return (
+        <>
+            <Header />
+            <TopBar handleBackHome={handleBackHome} />
+            <div id="page-informations">
+                <div className="content">
+                    <section className="pokemonInfo">
+                        <p>Loading...</p>
+                    </section>
+                </div>
+            </div>
+        </>
+    );
     
-    return (
+    else return (
         <>
             <Header />
             <TopBar handleBackHome={handleBackHome} />
@@ -105,7 +119,7 @@ const Informations: React.FC<Props> = (props) => {
                             <ReactImageFallback 
                                 src={pokemon.sprites.img} 
                                 alt={pokemon.name}
-                                fallbackImage={'/default-image.png'}
+                                fallbackImage={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png` || `/default-image.jpg`}
                                 initialImage={'/pokeball-loading.gif'}  />
                         </div>
                         <div className="pokemonInfo__text">

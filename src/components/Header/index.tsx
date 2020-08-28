@@ -6,7 +6,7 @@ const Header = () => {
     return (
         <>
             <header>
-                <img src={imgHeader}/>
+                <img src={imgHeader} alt="Pokemón Logo" title="Pokemón Logo"/>
             </header>
             <div className="afterEffects"></div>
         </>
