@@ -8,9 +8,7 @@ import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import Home from './pages/Home';
-import DefaultImg from './components/DefaultImg';
 import NotFound from './components/NotFound';
-import * as defaultImage from '../src/assets/default-image.jpg';
 import Informations from './pages/Informations';
 
 const Routes = () => {
@@ -18,7 +16,6 @@ const Routes = () => {
         <BrowserRouter>
             <Switch>
                 <Route component={Home} path="/" exact />
-                <Route component={DefaultImg} path="/default-image.jpg"/>
                 <Route component={Informations} path="/pokemon/:id" />
                 <Route component={NotFound} />
             </Switch>

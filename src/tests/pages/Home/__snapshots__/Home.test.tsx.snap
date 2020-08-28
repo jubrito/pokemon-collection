@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home  should show pokemon list 1`] = `
+<Fragment>
+  <Header />
+  <TopBar
+    handleInputChange={[Function]}
+  />
+  <div
+    id="page-home"
+  >
+    <div
+      className="content"
+    >
+      <section
+        className="pokemonList"
+      >
+        <p>
+          Loading...
+        </p>
+      </section>
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`Home should show pokemon list 1`] = `
+<Fragment>
+  <Header />
+  <TopBar
+    handleInputChange={[Function]}
+  />
+  <div
+    id="page-home"
+  >
+    <div
+      className="content"
+    >
+      <section
+        className="pokemonList"
+      >
+        <p>
+          Loading...
+        </p>
+      </section>
+    </div>
+  </div>
+</Fragment>
+`;

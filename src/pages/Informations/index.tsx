@@ -1,4 +1,4 @@
-import React, {useEffect, useState, SyntheticEvent } from 'react';
+import React, {useEffect, useState } from 'react';
 
 import axios from 'axios';
 
@@ -30,10 +30,6 @@ interface PokemonResponse {
     sprites: {
         img: string;
     };
-}
-
-interface PokemonImage {
-
 }
 
 interface Props {
@@ -109,9 +105,8 @@ const Informations: React.FC<Props> = (props) => {
                             <ReactImageFallback 
                                 src={pokemon.sprites.img} 
                                 alt={pokemon.name}
-                                fallbackImage={'/default-image.jpg'}
+                                fallbackImage={'/default-image.png'}
                                 initialImage={'/pokeball-loading.gif'}  />
-                            {/* <img src={pokemon.sprites.img} alt={pokemon.name} title={pokemon.name} onError={(e: SyntheticEvent<HTMLImageElement>)=> {e.currentTarget.src='/default-image.jpg'}}/> */}
                         </div>
                         <div className="pokemonInfo__text">
                             {

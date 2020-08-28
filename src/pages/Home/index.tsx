@@ -1,12 +1,10 @@
-import React, { useState, useEffect, ChangeEvent, SyntheticEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 
 import axios from 'axios';
 
 import { Link } from 'react-router-dom';
 
-import Pagination from '../../components/Pagination';
-
-import * as defaultImg from '../../assets/default-image.jpg';
+// import Pagination from '../../components/Pagination';
 
 import ReactImageFallback from "react-image-fallback";
 
@@ -14,7 +12,7 @@ import Header from '../../components/Header';
 
 import TopBar from '../../components/TopBar';
 
-type Nullable<String> = String | null;
+// type Nullable<String> = String | null;
 
 // Informamos que o axios.get vai retornar um array nesse formato
 interface PokemonListResponse {
@@ -32,26 +30,26 @@ interface Pokemon {
 }
 
 const Home = () => {
-    // const [ pokemon, setPokemon ] = useState<Pokemon[]>([{name:'', url:'', id: 0, img: ''}]);
     const [ pokemonList, setPokemonList ] = useState<Pokemon[]>([{name: '', url: ''}]); 
     
-    const [ currentPageURL, setCurrentPageURL ] = useState("https://pokeapi.co/api/v2/pokemon?offset=0&limit=1048");
-    const [ nextPageURL, setNextPageURL ] = useState<Nullable<String>>();
-    const [ prevPageURL, setPrevPageURL ] = useState<Nullable<String>>();
+    const [ currentPageURL, PagsetCurrenteURL ] = useState("https://pokeapi.co/api/v2/pokemon?offset=0&limit=1048");
     const [ loading, setLoading ] = useState(true);
     
-    const pokemonSize = 200;
-    const [ pokemonId, setPokemonId ] = useState(0);
-
-    // var pokemonId = String(pokemonList.indexOf(poke)+1);
-
-    const [ firstPage, setFirstPage ] = useState(false);
-    const [ lastPage, setLastPage ] = useState(false);
-
+    // const pokemonSize = 200;
+    // const [ pokemonId, setPokemonId ] = useState(0);
+    
     const [ search, setSearch ] = useState("");
-
+    
     const [ filteredPokemons, setfilteredPokemons ] = useState([{name: '', url: ''}]);
     const [ fullList, setFullList ] = useState([{name: '', url: ''}]);
+    
+    // var pokemonId = String(pokemonList.indexOf(poke)+1);
+    
+    // const [ nextPageURL, setNextPageURL ] = useState<Nullable<String>>();
+    // const [ prevPageURL, setPrevPageURL ] = useState<Nullable<String>>();
+    // const [ firstPage, setFirstPage ] = useState(false);
+    // const [ lastPage, setLastPage ] = useState(false);
+
 
     useEffect(() => {
         // every time we make a request, loading is true
@@ -63,51 +61,20 @@ const Home = () => {
                 cancelToken: new axios.CancelToken(c => cancelOldRequest = c)
             }).then(response => {
             // console.log(response.data.results);
-            // const pokemonData = response.data.results.map(poke => poke.url);
             setLoading(false);
             console.log(response.data.results);
             const pokemonData = response.data.results;
-            const next = response.data.next;
-            const previous = response.data.previous;
-            // setNextPageURL(next);
-            // setPrevPageURL(previous);
             setPokemonList(pokemonData);
             setfilteredPokemons(pokemonData);
             setFullList(pokemonData);
+            // const next = response.data.next;
+            // const previous = response.data.previous;
+            // setNextPageURL(next);
+            // setPrevPageURL(previous);
         });
         // cancel previous request every time we make a new one, making sure the application never loads old data
         return () => cancelOldRequest();
     }, [currentPageURL]);
-
-    useEffect(() => {
-        if (pokemonId < 20) setFirstPage(true);
-    }, [pokemonId]);
-
-    useEffect(() => {
-        if (pokemonId >= pokemonSize) setLastPage(true);
-    }, [pokemonId]);
-
-    function gotoNextPage() {
-        if (!lastPage) {
-            setPokemonId(pokemonId + 20);
-        }
-        if (nextPageURL !== null) {
-            setCurrentPageURL(String(nextPageURL));
-        }
-    }
-    
-    function gotoPrevPage() {
-        if (!firstPage) {
-            setPokemonId(pokemonId - 20);
-        }
-        if (prevPageURL !== null) {
-            setCurrentPageURL(String(prevPageURL));
-        }
-    }
-
-    function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-        setSearch(event.target.value);
-    }
 
     useEffect(() => {
         if (search !== '') {
@@ -117,9 +84,7 @@ const Home = () => {
                 (pokemon)=>{
                     if (pokemon.name.search(filter) !== -1) {
                         return pokemon;
-                    } else {
-                        return;
-                    }
+                    } 
                 });
                     //if you cannot find this search within the name then do not return it, on the instance you can find it, return the content (keep that content within the pokemonlist)
             setfilteredPokemons(filteredP);
@@ -128,13 +93,42 @@ const Home = () => {
         }
     }, [search]);
 
-    useEffect(() => {
-        filteredPokemons.map(poke =>  {
-            var id = Number(poke.url.slice(34, -1));
-            setPokemonId(id);
-        })
-    }, [filteredPokemons]);
+    // useEffect(() => {
+    //     filteredPokemons.map(poke =>  {
+    //         var id = Number(poke.url.slice(34, -1));
+    //         setPokemonId(id);
+    //     })
+    // }, [filteredPokemons]);
 
+    // useEffect(() => {
+    //     if (pokemonId < 20) setFirstPage(true);
+    // }, [pokemonId]);
+
+    // useEffect(() => {
+    //     if (pokemonId >= pokemonSize) setLastPage(true);
+    // }, [pokemonId]);
+
+    // function gotoNextPage() {
+    //     if (!lastPage) {
+    //         setPokemonId(pokemonId + 20);
+    //     }
+    //     if (nextPageURL !== null) {
+    //         setCurrentPageURL(String(nextPageURL));
+    //     }
+    // }
+    
+    // function gotoPrevPage() {
+    //     if (!firstPage) {
+    //         setPokemonId(pokemonId - 20);
+    //     }
+    //     if (prevPageURL !== null) {
+    //         setCurrentPageURL(String(prevPageURL));
+    //     }
+    // }
+
+    function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
+        setSearch(event.target.value);
+    }
 
     if (loading) return (
         <>
@@ -175,7 +169,7 @@ const Home = () => {
                                             /> */}
                                         <ReactImageFallback
                                             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.url.slice(34, -1)}.png` || `/default-image.jpg`} 
-                                            fallbackImage={'/default-image.jpg'}
+                                            fallbackImage={'/default-image.png'}
                                             initialImage={'/pokeball-loading.gif'}
                                             alt={poke.name} 
                                             />
