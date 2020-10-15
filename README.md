@@ -11,7 +11,7 @@
   <a href="#computer-tecnologies">Tecnologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#hammer-tools">Tools</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#woman_technologist-running-the-application">Running the application</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#octocat-how-to-contribute">Como contribuir</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#octocat-how-to-contribute">How to contribute</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
 <div align="center">
@@ -35,9 +35,9 @@
 
 ## **:hammer: TOOLS**
 
-- API: **[PokéAPI](https://pokeapi.co/)**versao=1#api-Municipios-estadosUFMunicipiosGet)</kbd>** 
+- API: **[PokéAPI](https://pokeapi.co/)**
 - Fontes: **[Roboto](https://fonts.google.com/specimen/Roboto)**, **[Ubuntu](https://fonts.google.com/specimen/Ubuntu)**
-- Editor: **[Visual Studio Code](https://code.visualstudio.com/)** &rarr; 
+- Editor: **[Visual Studio Code](https://code.visualstudio.com/)**
 
 
 ## **:woman_technologist: RUNNING THE APPLICATION** 
@@ -59,7 +59,7 @@ Access [http://localhost:3000](http://localhost:3000) - (the application will op
 
 ## **:octocat: HOW TO CONTRIBUTE**
 
-  - **[fork](https://help.github.com/pt/github/getting-started-with-github/fork-a-repo)** the repository;
+  - *[Fork](https://help.github.com/pt/github/getting-started-with-github/fork-a-repo)* the repository;
   - Access your Gihub page and clone locallu your fork;
   - Create a *branch* with the name of your feature: `git chechout -b feature/myFeature`;
   - Save your changes;
