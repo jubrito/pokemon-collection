@@ -4,7 +4,7 @@
 </div>
 
 <p align="center">
-<strong>Pokedex</strong> - A Pokemon Collection where you can find the main informations (such as weight, stats and abilities) about your favorite Pokemón.
+<strong>Pokedex</strong> - A Pokemon Collection where you can find the main informations (such as weight, stats and abilities) about your favorites Pokemóns.
 </p>
 
 <p align="center">
